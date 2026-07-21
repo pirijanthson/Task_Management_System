@@ -1,13 +1,20 @@
 import {Router} from "express";
 
 import {
+
 createTask,
 getTasks,
+getTaskById,
+updateTask,
 deleteTask
+
 }
 from "../controllers/task.controller";
 
-import {authenticate}
+
+import {
+authenticate
+}
 from "../middleware/auth.middleware";
 
 
@@ -27,6 +34,22 @@ router.get(
 "/",
 authenticate,
 getTasks
+);
+
+
+
+router.get(
+"/:id",
+authenticate,
+getTaskById
+);
+
+
+
+router.put(
+"/:id",
+authenticate,
+updateTask
 );
 
 
