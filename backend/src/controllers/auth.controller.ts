@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 import prisma from "../config/prisma";
 import { generateToken } from "../utils/jwt";
 
@@ -45,4 +46,62 @@ export const login = async (req: Request, res:Response) => {
             message: "Server Error"
         });
     }
+};
+
+export const logout = async (
+  req: Request,
+  res: Response
+) => {
+
+  try {
+
+    const authHeader = req.headers.authorization;
+
+
+    if(!authHeader){
+
+      return res.status(401).json({
+        message:"No token provided"
+      });
+
+    }
+
+
+    const token = authHeader.split(" ")[1];
+
+
+    const decoded:any = jwt.decode(token);
+
+
+    await prisma.revokedToken.create({
+
+      data:{
+        token,
+        expiresAt:new Date(decoded.exp * 1000)
+      }
+
+    });
+
+
+    return res.json({
+
+      success:true,
+      message:"Logout successful"
+
+    });
+
+
+  } catch(error){
+
+    console.error(error);
+
+
+    return res.status(500).json({
+
+      message:"Logout failed"
+
+    });
+
+  }
+
 };

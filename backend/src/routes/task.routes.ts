@@ -1,65 +1,74 @@
-import {Router} from "express";
+import { Router } from "express";
 
 import {
+  createTask,
+  getTasks,
+  getTaskById,
+  updateTask,
+  deleteTask,
+  getTaskStats,
+} from "../controllers/task.controller";
 
-createTask,
-getTasks,
-getTaskById,
-updateTask,
-deleteTask
-
-}
-from "../controllers/task.controller";
-
-
-import {
-authenticate
-}
-from "../middleware/auth.middleware";
-
+import { authenticate } from "../middleware/auth.middleware";
+import { validate } from "../middleware/validate.middleware";
+import { taskSchema } from "../validators/task.validator";
 
 const router = Router();
 
+/* ===========================
+   Dashboard Statistics
+=========================== */
+router.get(
+  "/stats",
+  authenticate,
+  getTaskStats
+);
 
+/* ===========================
+   Get All Tasks
+=========================== */
+router.get(
+  "/",
+  authenticate,
+  getTasks
+);
 
+/* ===========================
+   Get Single Task
+=========================== */
+router.get(
+  "/:id",
+  authenticate,
+  getTaskById
+);
+
+/* ===========================
+   Create Task
+=========================== */
 router.post(
-"/",
-authenticate,
-createTask
+  "/",
+  authenticate,
+  validate(taskSchema),
+  createTask
 );
 
-
-
-router.get(
-"/",
-authenticate,
-getTasks
-);
-
-
-
-router.get(
-"/:id",
-authenticate,
-getTaskById
-);
-
-
-
+/* ===========================
+   Update Task
+=========================== */
 router.put(
-"/:id",
-authenticate,
-updateTask
+  "/:id",
+  authenticate,
+  validate(taskSchema),
+  updateTask
 );
 
-
-
+/* ===========================
+   Delete Task
+=========================== */
 router.delete(
-"/:id",
-authenticate,
-deleteTask
+  "/:id",
+  authenticate,
+  deleteTask
 );
-
-
 
 export default router;
