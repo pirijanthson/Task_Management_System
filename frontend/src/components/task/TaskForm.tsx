@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 import {
     createTask,
@@ -98,7 +99,7 @@ e.preventDefault();
 
 if(!title){
 
-    setError("Title is required");
+    toast.error("Title is required");
 
     return;
 
@@ -107,7 +108,7 @@ if(!title){
 
 if(!dueDate){
 
-    setError("Due date is required");
+    toast.error("Due date is required");
 
     return;
 
@@ -172,9 +173,7 @@ onClose();
 
 console.log(error);
 
-setError(
-    "Operation failed"
-);
+toast.error("Operation failed");
 
 
 }

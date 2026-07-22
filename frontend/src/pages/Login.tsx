@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/auth.service";
+import toast from "react-hot-toast";
 
 export default function Login() {
 
@@ -25,11 +26,13 @@ export default function Login() {
 
       localStorage.setItem("user", JSON.stringify(data.user));
 
+      toast.success("Login successful");
+
       navigate("/dashboard");
 
     } catch (error) {
 
-      alert("Invalid email or password");
+      toast.error("Invalid email or password");
 
     } finally {
 
