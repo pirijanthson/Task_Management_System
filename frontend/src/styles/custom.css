@@ -1,0 +1,29 @@
+/* Card Hover */
+
+.card-hover{
+
+    transition:0.3s;
+
+}
+
+.card-hover:hover{
+
+    transform:translateY(-4px);
+
+}
+
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#94a3b8;
+    border-radius:10px;
+
+}

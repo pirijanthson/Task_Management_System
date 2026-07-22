@@ -15,36 +15,28 @@ import { taskSchema } from "../validators/task.validator";
 
 const router = Router();
 
-/* ===========================
-   Dashboard Statistics
-=========================== */
+//Dashbor Status
 router.get(
   "/stats",
   authenticate,
   getTaskStats
 );
 
-/* ===========================
-   Get All Tasks
-=========================== */
+//Get All Task
 router.get(
   "/",
   authenticate,
   getTasks
 );
 
-/* ===========================
-   Get Single Task
-=========================== */
+//Get Single Task
 router.get(
   "/:id",
   authenticate,
   getTaskById
 );
 
-/* ===========================
-   Create Task
-=========================== */
+//Create Task
 router.post(
   "/",
   authenticate,
@@ -52,9 +44,7 @@ router.post(
   createTask
 );
 
-/* ===========================
-   Update Task
-=========================== */
+//Update Task
 router.put(
   "/:id",
   authenticate,
@@ -62,9 +52,7 @@ router.put(
   updateTask
 );
 
-/* ===========================
-   Delete Task
-=========================== */
+//Delete Task
 router.delete(
   "/:id",
   authenticate,
