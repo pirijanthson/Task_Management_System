@@ -1,27 +1,57 @@
-export default function Loader(){
+interface LoaderProps {
+
+    fullScreen?: boolean;
+
+}
+
+
+export default function Loader({
+
+    fullScreen = false
+
+}:LoaderProps){
+
 
     return (
 
-        <div className="
+        <div
+
+        className={`
+        
         flex
         justify-center
         items-center
-        py-10
-        ">
+
+        ${
+            fullScreen
+            ?
+            "min-h-screen"
+            :
+            "py-10"
+        }
+
+        `}
+
+        >
+
 
             <div
+
             className="
-            w-10
-            h-10
+            w-12
+            h-12
             border-4
             border-blue-600
+            dark:border-blue-400
             border-t-transparent
             rounded-full
             animate-spin
             "
+
             >
 
             </div>
+
 
         </div>
 

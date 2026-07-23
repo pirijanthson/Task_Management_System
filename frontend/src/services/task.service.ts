@@ -55,37 +55,24 @@ export const getTaskById = async (
 
 
 
+export interface TaskPayload {
+    title: string;
+    description?: string;
+    priority?: string;
+    status?: string;
+    dueDate: string;
+}
+
 // Create Task
-
-export const createTask = async (
-    data: any
-) => {
-
-    const response = await api.post(
-        "/tasks",
-        data
-    );
-
+export const createTask = async (data: TaskPayload) => {
+    const response = await api.post("/tasks", data);
     return response.data;
-
 };
 
-
-
 // Update Task
-
-export const updateTask = async (
-    id: number,
-    data: any
-) => {
-
-    const response = await api.put(
-        `/tasks/${id}`,
-        data
-    );
-
+export const updateTask = async (id: number, data: Partial<TaskPayload>) => {
+    const response = await api.put(`/tasks/${id}`, data);
     return response.data;
-
 };
 
 

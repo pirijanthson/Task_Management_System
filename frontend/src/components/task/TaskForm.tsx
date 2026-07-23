@@ -42,7 +42,6 @@ export default function TaskForm({
 }:TaskFormProps){
 
 
-
 const [title,setTitle]=useState("");
 
 const [description,setDescription]=useState("");
@@ -53,11 +52,7 @@ const [status,setStatus]=useState("PENDING");
 
 const [dueDate,setDueDate]=useState("");
 
-const [error,setError]=useState("");
-
 const [loading,setLoading]=useState(false);
-
-
 
 
 
@@ -79,10 +74,22 @@ useEffect(()=>{
         );
 
     }
+    else{
+
+        setTitle("");
+
+        setDescription("");
+
+        setPriority("MEDIUM");
+
+        setStatus("PENDING");
+
+        setDueDate("");
+
+    }
 
 
 },[task]);
-
 
 
 
@@ -94,7 +101,6 @@ const handleSubmit = async(
 
 
 e.preventDefault();
-
 
 
 if(!title){
@@ -115,71 +121,71 @@ if(!dueDate){
 }
 
 
-
 try{
 
 
-setLoading(true);
+    setLoading(true);
 
 
 
-const data={
+    const data={
 
-    title,
+        title,
 
-    description,
+        description,
 
-    priority,
+        priority,
 
-    status,
+        status,
 
-    dueDate
+        dueDate
 
-};
-
-
+    };
 
 
 
-if(task){
+    if(task){
+
+        await updateTask(
+            task.id,
+            data
+        );
+
+        toast.success(
+            "Task updated successfully"
+        );
+
+    }
+    else{
+
+        await createTask(data);
+
+        toast.success(
+            "Task created successfully"
+        );
+
+    }
 
 
-    await updateTask(
-        task.id,
-        data
+    onSuccess();
+
+    onClose();
+
+
+
+}
+catch(error){
+
+    console.log(error);
+
+    toast.error(
+        "Operation failed"
     );
-
-
-}
-else{
-
-
-    await createTask(data);
-
-
-}
-
-
-
-
-onSuccess();
-
-onClose();
-
-
-
-}catch(error){
-
-
-console.log(error);
-
-toast.error("Operation failed");
-
 
 }
 finally{
 
-setLoading(false);
+    setLoading(false);
 
 }
 
@@ -191,15 +197,20 @@ setLoading(false);
 
 return (
 
-<div className="
+<div
+
+className="
 fixed
 inset-0
-bg-black/40
+bg-black/50
 flex
 items-center
 justify-center
 z-50
-">
+p-4
+"
+
+>
 
 
 <form
@@ -208,18 +219,33 @@ onSubmit={handleSubmit}
 
 className="
 bg-white
-rounded-xl
-shadow-xl
-p-8
+dark:bg-slate-800
+rounded-2xl
+shadow-2xl
+p-6
+md:p-8
 w-full
 max-w-lg
+max-h-[90vh]
+overflow-y-auto
+transition-colors
+duration-300
 "
-
 
 >
 
 
-<h2 className="text-2xl font-bold mb-6">
+<h2
+
+className="
+text-2xl
+font-bold
+mb-6
+text-slate-800
+dark:text-white
+"
+
+>
 
 {
 task
@@ -234,25 +260,31 @@ task
 
 
 
-{
-error &&
-
-<p className="text-red-600 mb-4">
-
-{error}
-
-</p>
-
-}
-
-
-
 
 <input
 
-className="w-full border rounded-lg p-3 mb-4"
+className="
+w-full
+border
+rounded-lg
+p-3
+mb-4
 
-placeholder="Title"
+bg-white
+dark:bg-slate-700
+
+text-slate-800
+dark:text-white
+
+border-gray-300
+dark:border-slate-600
+
+outline-none
+focus:ring-2
+focus:ring-blue-500
+"
+
+placeholder="Task title"
 
 value={title}
 
@@ -268,9 +300,30 @@ onChange={
 
 <textarea
 
-className="w-full border rounded-lg p-3 mb-4"
+className="
+w-full
+border
+rounded-lg
+p-3
+mb-4
 
-placeholder="Description"
+bg-white
+dark:bg-slate-700
+
+text-slate-800
+dark:text-white
+
+border-gray-300
+dark:border-slate-600
+
+outline-none
+focus:ring-2
+focus:ring-blue-500
+"
+
+placeholder="Task description"
+
+rows={4}
 
 value={description}
 
@@ -284,9 +337,26 @@ onChange={
 
 
 
+
+
 <select
 
-className="w-full border rounded-lg p-3 mb-4"
+className="
+w-full
+border
+rounded-lg
+p-3
+mb-4
+
+bg-white
+dark:bg-slate-700
+
+text-slate-800
+dark:text-white
+
+border-gray-300
+dark:border-slate-600
+"
 
 value={priority}
 
@@ -300,11 +370,9 @@ onChange={
 LOW
 </option>
 
-
 <option value="MEDIUM">
 MEDIUM
 </option>
-
 
 <option value="HIGH">
 HIGH
@@ -317,9 +385,25 @@ HIGH
 
 
 
+
 <select
 
-className="w-full border rounded-lg p-3 mb-4"
+className="
+w-full
+border
+rounded-lg
+p-3
+mb-4
+
+bg-white
+dark:bg-slate-700
+
+text-slate-800
+dark:text-white
+
+border-gray-300
+dark:border-slate-600
+"
 
 value={status}
 
@@ -351,11 +435,28 @@ COMPLETED
 
 
 
+
+
 <input
 
 type="date"
 
-className="w-full border rounded-lg p-3 mb-6"
+className="
+w-full
+border
+rounded-lg
+p-3
+mb-6
+
+bg-white
+dark:bg-slate-700
+
+text-slate-800
+dark:text-white
+
+border-gray-300
+dark:border-slate-600
+"
 
 value={dueDate}
 
@@ -364,6 +465,8 @@ onChange={
 }
 
 />
+
+
 
 
 
@@ -378,7 +481,17 @@ type="button"
 
 onClick={onClose}
 
-className="bg-gray-300 px-5 py-2 rounded-lg"
+className="
+bg-gray-300
+dark:bg-slate-600
+dark:text-white
+px-5
+py-2
+rounded-lg
+hover:bg-gray-400
+dark:hover:bg-slate-500
+transition
+"
 
 >
 
@@ -388,13 +501,25 @@ Cancel
 
 
 
+
+
 <button
 
 disabled={loading}
 
-className="bg-blue-600 text-white px-5 py-2 rounded-lg"
+className="
+bg-blue-600
+text-white
+px-5
+py-2
+rounded-lg
+hover:bg-blue-700
+transition
+disabled:opacity-50
+"
 
 >
+
 
 {
 loading
@@ -407,6 +532,7 @@ task
 :
 "Create"
 }
+
 
 </button>
 
