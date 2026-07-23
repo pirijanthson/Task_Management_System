@@ -55,8 +55,8 @@ export const getTasks = async (req: AuthRequest, res: Response) => {
         sort === "oldest"
           ? { createdAt: "asc" }
           : sort === "dueDate"
-          ? { dueDate: "asc" }
-          : { createdAt: "desc" },
+            ? { dueDate: "asc" }
+            : { createdAt: "desc" },
     });
 
     return res.json(tasks);
@@ -183,45 +183,50 @@ export const getTaskStats = async (req: AuthRequest, res: Response) => {
   try {
     const userId = req.userId!;
 
-    const [totalTasks, pendingTasks, inProgressTasks, completedTasks, overdueTasks] =
-      await Promise.all([
-        prisma.task.count({
-          where: { userId },
-        }),
+    const [
+      totalTasks,
+      pendingTasks,
+      inProgressTasks,
+      completedTasks,
+      overdueTasks,
+    ] = await Promise.all([
+      prisma.task.count({
+        where: { userId },
+      }),
 
-        prisma.task.count({
-          where: {
-            userId,
-            status: "PENDING",
-          },
-        }),
+      prisma.task.count({
+        where: {
+          userId,
+          status: "PENDING",
+        },
+      }),
 
-        prisma.task.count({
-          where: {
-            userId,
-            status: "IN_PROGRESS",
-          },
-        }),
+      prisma.task.count({
+        where: {
+          userId,
+          status: "IN_PROGRESS",
+        },
+      }),
 
-        prisma.task.count({
-          where: {
-            userId,
-            status: "COMPLETED",
-          },
-        }),
+      prisma.task.count({
+        where: {
+          userId,
+          status: "COMPLETED",
+        },
+      }),
 
-        prisma.task.count({
-          where: {
-            userId,
-            dueDate: {
-              lt: new Date(),
-            },
-            status: {
-              not: "COMPLETED",
-            },
+      prisma.task.count({
+        where: {
+          userId,
+          dueDate: {
+            lt: new Date(),
           },
-        }),
-      ]);
+          status: {
+            not: "COMPLETED",
+          },
+        },
+      }),
+    ]);
 
     return res.json({
       totalTasks,

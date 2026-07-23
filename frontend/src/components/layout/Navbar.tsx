@@ -38,7 +38,6 @@ export default function Navbar({ onToggleMobileMenu }: NavbarProps) {
 
   return (
     <header className="sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800/80 px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between transition-colors duration-300">
-      {/* Left Section: Mobile Menu Toggle & Greetings */}
       <div className="flex items-center gap-3 sm:gap-4">
         {onToggleMobileMenu && (
           <button
@@ -61,7 +60,12 @@ export default function Navbar({ onToggleMobileMenu }: NavbarProps) {
           </div>
 
           <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            <span>Welcome back, <strong className="text-slate-700 dark:text-slate-200">{user.name || "User"}</strong></span>
+            <span>
+              Welcome back,{" "}
+              <strong className="text-slate-700 dark:text-slate-200">
+                {user.name || "User"}
+              </strong>
+            </span>
             <span className="hidden md:inline">•</span>
             <span className="hidden md:flex items-center gap-1">
               <Calendar size={13} className="text-slate-400" />
@@ -71,22 +75,25 @@ export default function Navbar({ onToggleMobileMenu }: NavbarProps) {
         </div>
       </div>
 
-      {/* Right Section: Theme Switcher & User Avatar */}
       <div className="flex items-center gap-3">
-        {/* Dark/Light Mode Switcher */}
         <button
           onClick={toggleTheme}
           title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
           className="relative group p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
         >
           {darkMode ? (
-            <Sun className="text-amber-400 transition-transform duration-300 group-hover:rotate-45" size={19} />
+            <Sun
+              className="text-amber-400 transition-transform duration-300 group-hover:rotate-45"
+              size={19}
+            />
           ) : (
-            <Moon className="text-slate-700 transition-transform duration-300 group-hover:-rotate-12" size={19} />
+            <Moon
+              className="text-slate-700 transition-transform duration-300 group-hover:-rotate-12"
+              size={19}
+            />
           )}
         </button>
 
-        {/* User Profile Badge */}
         <div className="flex items-center gap-2.5 pl-2 border-l border-slate-200 dark:border-slate-800">
           <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow-md shadow-blue-500/20 ring-2 ring-white dark:ring-slate-800">
             {getInitials(user.name)}

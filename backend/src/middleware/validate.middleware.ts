@@ -1,30 +1,17 @@
-import {Request,Response,NextFunction} from "express";
+import { Request, Response, NextFunction } from "express";
 
+export const validate = (schema: any) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const result = schema.safeParse(req.body);
 
-export const validate = (schema:any)=>{
+    if (!result.success) {
+      return res.status(400).json({
+        message: "Validation failed",
 
-return( req:Request, res:Response, next:NextFunction) => {
+        errors: result.error.errors,
+      });
+    }
 
-
-const result=schema.safeParse(req.body);
-
-
-if(!result.success){
-
-return res.status(400).json({
-
-message:"Validation failed",
-
-errors:result.error.errors
-
-});
-
-}
-
-
-next();
-
-
-}
-
-}
+    next();
+  };
+};

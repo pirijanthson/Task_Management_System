@@ -1,4 +1,12 @@
-import { Calendar, Edit3, Trash2, Clock, CheckCircle2, AlertCircle } from "lucide-react";
+import {
+  Calendar,
+  Edit3,
+  Trash2,
+  Clock,
+  CheckCircle2,
+  AlertCircle,
+} from "lucide-react";
+
 import { motion } from "framer-motion";
 
 interface Task {
@@ -34,19 +42,19 @@ export default function TaskCard({ task, onEdit, onDelete, index = 0 }: Props) {
       case "COMPLETED":
         return {
           label: "Completed",
-          style: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/50",
+          style:"bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/50",
           icon: <CheckCircle2 size={13} />,
         };
       case "IN_PROGRESS":
         return {
           label: "In Progress",
-          style: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800/50",
+          style:"bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800/50",
           icon: <Clock size={13} />,
         };
       default:
         return {
           label: "Pending",
-          style: "bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800/50",
+          style:"bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800/50",
           icon: <AlertCircle size={13} />,
         };
     }
@@ -63,7 +71,6 @@ export default function TaskCard({ task, onEdit, onDelete, index = 0 }: Props) {
       className="bg-white dark:bg-slate-900/90 rounded-2xl p-5 shadow-sm hover:shadow-xl border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between transition-all duration-300 group"
     >
       <div>
-        {/* Header Badges */}
         <div className="flex items-center justify-between gap-2 mb-3">
           <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold border ${statusBadge.style}`}>
             {statusBadge.icon}
@@ -75,18 +82,15 @@ export default function TaskCard({ task, onEdit, onDelete, index = 0 }: Props) {
           </span>
         </div>
 
-        {/* Task Title */}
         <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
           {task.title}
         </h3>
 
-        {/* Task Description */}
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2 leading-relaxed">
           {task.description || "No description provided."}
         </p>
       </div>
 
-      {/* Footer Info & Actions */}
       <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
         <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-medium">
           <Calendar size={14} className="text-slate-400" />

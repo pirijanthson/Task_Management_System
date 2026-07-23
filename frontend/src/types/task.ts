@@ -1,19 +1,17 @@
-export interface Task{
+export interface Task {
+  id: number;
 
-    id:number;
+  title: string;
 
-    title:string;
+  description: string;
 
-    description:string;
+  priority: string;
 
-    priority:string;
+  status: string;
 
-    status:string;
+  dueDate: string;
 
-    dueDate:string;
+  createdAt: string;
 
-    createdAt:string;
-
-    updatedAt:string;
-
+  updatedAt: string;
 }

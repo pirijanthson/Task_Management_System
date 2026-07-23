@@ -1,4 +1,11 @@
-import { Edit3, Trash2, Calendar, CheckCircle2, Clock, AlertCircle } from "lucide-react";
+import {
+  Edit3,
+  Trash2,
+  Calendar,
+  CheckCircle2,
+  Clock,
+  AlertCircle,
+} from "lucide-react";
 
 interface Task {
   id: number;
@@ -32,19 +39,19 @@ export default function TaskTable({ tasks, onEdit, onDelete }: TaskTableProps) {
       case "COMPLETED":
         return {
           label: "Completed",
-          style: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/50",
+          style:"bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800/50",
           icon: <CheckCircle2 size={13} />,
         };
       case "IN_PROGRESS":
         return {
           label: "In Progress",
-          style: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800/50",
+          style:"bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800/50",
           icon: <Clock size={13} />,
         };
       default:
         return {
           label: "Pending",
-          style: "bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800/50",
+          style:"bg-slate-500/10 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-800/50",
           icon: <AlertCircle size={13} />,
         };
     }
@@ -67,7 +74,10 @@ export default function TaskTable({ tasks, onEdit, onDelete }: TaskTableProps) {
           <tbody className="divide-y divide-slate-100 dark:divide-slate-800/80 text-sm">
             {tasks.length === 0 ? (
               <tr>
-                <td colSpan={5} className="text-center py-10 text-slate-500 dark:text-slate-400">
+                <td
+                  colSpan={5}
+                  className="text-center py-10 text-slate-500 dark:text-slate-400"
+                >
                   No tasks available.
                 </td>
               </tr>
@@ -106,7 +116,9 @@ export default function TaskTable({ tasks, onEdit, onDelete }: TaskTableProps) {
                     <td className="px-6 py-4 text-slate-600 dark:text-slate-300">
                       <div className="flex items-center gap-1.5 text-xs font-medium">
                         <Calendar size={14} className="text-slate-400" />
-                        <span>{new Date(task.dueDate).toLocaleDateString()}</span>
+                        <span>
+                          {new Date(task.dueDate).toLocaleDateString()}
+                        </span>
                       </div>
                     </td>
 

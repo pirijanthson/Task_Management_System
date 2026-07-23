@@ -2,14 +2,12 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { Plus, Search, Filter, Calendar, LayoutGrid, List } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
 import ConfirmModal from "../components/common/ConfirmModal";
 import Loader from "../components/common/Loader";
 import Layout from "../components/layout/Layout";
 import TaskTable from "../components/task/TaskTable";
 import TaskForm from "../components/task/TaskForm";
 import TaskCard from "../components/task/TaskCard";
-
 import { getTasks, deleteTask } from "../services/task.service";
 
 interface Task {
@@ -76,7 +74,6 @@ export default function Tasks() {
 
   return (
     <Layout>
-      {/* Header section with Action Button & View Toggle */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
@@ -88,7 +85,6 @@ export default function Tasks() {
         </div>
 
         <div className="flex items-center gap-3">
-          {/* View mode toggle button (desktop) */}
           <div className="hidden sm:flex items-center p-1 bg-slate-100 dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700">
             <button
               onClick={() => setViewMode("table")}
@@ -127,12 +123,13 @@ export default function Tasks() {
         </div>
       </div>
 
-      {/* Filter and Search Toolbar */}
       <div className="bg-white dark:bg-slate-900/90 rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-200/80 dark:border-slate-800/80 mb-6 transition-colors duration-300">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-          {/* Search bar */}
           <div className="relative">
-            <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search
+              size={18}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+            />
             <input
               type="text"
               placeholder="Search tasks..."
@@ -142,9 +139,11 @@ export default function Tasks() {
             />
           </div>
 
-          {/* Status filter */}
           <div className="relative">
-            <Filter size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            <Filter
+              size={16}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+            />
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value)}
@@ -157,7 +156,6 @@ export default function Tasks() {
             </select>
           </div>
 
-          {/* Priority filter */}
           <select
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
@@ -169,9 +167,11 @@ export default function Tasks() {
             <option value="HIGH">High</option>
           </select>
 
-          {/* Sort order */}
           <div className="relative">
-            <Calendar size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            <Calendar
+              size={16}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
+            />
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
@@ -185,7 +185,6 @@ export default function Tasks() {
         </div>
       </div>
 
-      {/* Main Content Render */}
       {loading ? (
         <div className="flex justify-center items-center min-h-[300px]">
           <Loader />
@@ -199,7 +198,9 @@ export default function Tasks() {
           <div className="w-16 h-16 bg-blue-50 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400 mx-auto mb-4">
             <Search size={30} />
           </div>
-          <h3 className="text-lg font-bold text-slate-800 dark:text-white">No tasks found</h3>
+          <h3 className="text-lg font-bold text-slate-800 dark:text-white">
+            No tasks found
+          </h3>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">
             Try adjusting your search criteria or create a new task ticket.
           </p>
@@ -214,11 +215,14 @@ export default function Tasks() {
               exit={{ opacity: 0 }}
               className="hidden md:block"
             >
-              <TaskTable tasks={tasks} onEdit={handleEdit} onDelete={handleDelete} />
+              <TaskTable
+                tasks={tasks}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+              />
             </motion.div>
           ) : null}
 
-          {/* Grid View or Mobile Cards */}
           <motion.div
             key="grid-view"
             initial={{ opacity: 0 }}
@@ -241,7 +245,6 @@ export default function Tasks() {
         </AnimatePresence>
       )}
 
-      {/* Task Form Modal */}
       {showForm && (
         <TaskForm
           task={selectedTask}
@@ -253,7 +256,6 @@ export default function Tasks() {
         />
       )}
 
-      {/* Delete Confirmation Modal */}
       {deleteTaskId !== null && (
         <ConfirmModal
           title="Delete Task"

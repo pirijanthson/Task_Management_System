@@ -8,7 +8,11 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
-export default function Sidebar({ onLogout, isOpen = false, onClose }: SidebarProps) {
+export default function Sidebar({
+  onLogout,
+  isOpen = false,
+  onClose,
+}: SidebarProps) {
   const location = useLocation();
 
   const menuItems = [
@@ -26,7 +30,6 @@ export default function Sidebar({ onLogout, isOpen = false, onClose }: SidebarPr
 
   const sidebarContent = (
     <div className="flex flex-col h-full bg-slate-900/95 dark:bg-slate-950/95 backdrop-blur-xl text-white border-r border-slate-800">
-      {/* Brand Header */}
       <div className="flex items-center justify-between px-6 py-5 border-b border-slate-800/80">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20">
@@ -40,7 +43,6 @@ export default function Sidebar({ onLogout, isOpen = false, onClose }: SidebarPr
           </div>
         </div>
 
-        {/* Mobile close button */}
         {onClose && (
           <button
             onClick={onClose}
@@ -52,7 +54,6 @@ export default function Sidebar({ onLogout, isOpen = false, onClose }: SidebarPr
         )}
       </div>
 
-      {/* Navigation menu */}
       <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
         <p className="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
           Navigation
@@ -71,7 +72,9 @@ export default function Sidebar({ onLogout, isOpen = false, onClose }: SidebarPr
                   : "text-slate-400 hover:text-slate-100 hover:bg-slate-800/60"
               }`}
             >
-              <span className={`transition-transform duration-200 ${isActive ? "scale-110" : "group-hover:scale-110"}`}>
+              <span
+                className={`transition-transform duration-200 ${isActive ? "scale-110" : "group-hover:scale-110"}`}
+              >
                 {item.icon}
               </span>
               <span>{item.name}</span>
@@ -88,13 +91,15 @@ export default function Sidebar({ onLogout, isOpen = false, onClose }: SidebarPr
         })}
       </nav>
 
-      {/* Logout Footer */}
       <div className="p-4 border-t border-slate-800/80">
         <button
           onClick={onLogout}
           className="flex items-center justify-center gap-2.5 w-full bg-slate-800/80 hover:bg-red-600/90 hover:text-white text-slate-300 py-2.5 px-4 rounded-xl transition-all duration-300 font-medium text-sm border border-slate-700/50 hover:border-red-500/50 group shadow-sm hover:shadow-red-500/20"
         >
-          <LogOut size={18} className="transition-transform group-hover:-translate-x-0.5" />
+          <LogOut
+            size={18}
+            className="transition-transform group-hover:-translate-x-0.5"
+          />
           <span>Logout</span>
         </button>
       </div>
@@ -103,12 +108,10 @@ export default function Sidebar({ onLogout, isOpen = false, onClose }: SidebarPr
 
   return (
     <>
-      {/* Desktop Sidebar (persistent) */}
       <aside className="hidden lg:block w-64 min-h-screen flex-shrink-0">
         {sidebarContent}
       </aside>
 
-      {/* Mobile Drawer (animated backdrop + drawer) */}
       {isOpen && (
         <div className="fixed inset-0 z-50 lg:hidden flex">
           <motion.div
